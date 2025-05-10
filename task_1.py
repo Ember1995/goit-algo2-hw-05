@@ -24,16 +24,14 @@ def check_password_uniqueness(bloom_filter: BloomFilter, passwords: List[str]) -
     results = {}
 
     for password in passwords:
-
+        key = str(password)
         if not isinstance(password, str) or not password.strip():
-            results[str(password)] = False
+            results[key] = False
             continue
-            
         if bloom_filter.contains(password):
-            results[password] = False
-
+            results[key] = False
         else:
-            results[password] = True
+            results[key] = True
             bloom_filter.add(password)
 
     return results
